@@ -1,0 +1,299 @@
+@use "../utils/variables" as *;
+@use "../utils/mixins" as *;
+
+// =============== Container =============== //
+.container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-inline: 40px;
+
+  @include respond(mobile) {
+    padding-inline: 20px;
+  }
+}
+
+// =============== Section =============== //
+section {
+  padding: 100px 0;
+
+  @include respond(tablet) {
+    padding: 80px 0;
+  }
+
+  @include respond(mobile) {
+    padding: 60px 0;
+  }
+}
+// =============== Header =============== //
+header {
+  background: rgba($background, 0.7);
+  backdrop-filter: blur(24px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  border-bottom: 1px solid $border;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 90px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: $text;
+    text-transform: uppercase;
+  }
+
+  nav {
+    ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      @include respond(mobile) {
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: 5px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
+
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $muted;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 100px;
+      transition: all 0.3s;
+
+      &.active {
+        color: $text;
+        background: rgba($primary, 0.2);
+        border-color: rgba($primary, 0.5);
+      }
+
+      &:hover {
+        color: $text;
+        background: rgba($primary, 0.2);
+        border-color: rgba($primary, 0.5);
+        transform: translateY(-2px);
+      }
+
+      @include respond(mobile) {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  @include respond(tablet) {
+    .container {
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .button {
+      display: none;
+    }
+  }
+}
+// =============== Buttons =============== //
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 4px 16px 4px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &.primary {
+    background: $primary;
+    color: $text;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.secondary {
+    background: transparent;
+    color: $text;
+    border: 2px solid $secondary;
+
+    &:hover {
+      background: rgba($secondary, 0.1);
+    }
+  }
+}
+
+// =============== Card =============== //
+%card {
+  background: $surface;
+  border-radius: $radius-lg;
+  border: 4px solid $border;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: $surface-light;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border-color: $primary;
+  }
+}
+
+.card {
+  @extend %card;
+
+  img {
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
+    background: black;
+  }
+
+  .content {
+    padding: 24px;
+  }
+
+  h3 {
+    margin: 12px 0;
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-top: 15px;
+    border-top: 1px solid $border;
+
+    span {
+      font-size: 0.9rem;
+      color: $muted;
+      display: block;
+    }
+
+    strong {
+      color: $text;
+      display: block;
+      margin-top: 4px;
+    }
+  }
+}
+
+// =============== Status =============== //
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  &.active {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+  }
+
+  &.completed {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  &.planned {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+  }
+}
+
+// =============== Footer =============== //
+footer {
+  background: $surface;
+  border-top: 1px solid $border;
+  padding: 60px 0 30px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  a {
+    color: $muted;
+    transition: color 0.3s ease;
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  .bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid $border;
+    color: $muted;
+    font-size: 0.9rem;
+  }
+}
